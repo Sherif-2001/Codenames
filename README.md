@@ -1,16 +1,14 @@
-# code_names
+# CodeNames
+This is a 2015 party card game designed by Vlaada Chvátil. Two teams compete by each having a "spymaster" give one-word clues that can point to multiple words on the board.
 
-A new Flutter project.
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
+### Splash Screen
+![Screenshot_1665060609](https://user-images.githubusercontent.com/93449171/194318183-55477dda-7b91-4edc-a59a-2e40e94f8866.png)
 
-A few resources to get you started if this is your first Flutter project:
+### Main Menu
+![Screenshot_1665060617](https://user-images.githubusercontent.com/93449171/194318218-dce13a20-a892-4171-b462-3536c1aa91db.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Gameplay
+![Screenshot_1665060634](https://user-images.githubusercontent.com/93449171/194318247-74b2a3a7-4f94-4629-b7bb-c5188248405d.png)
