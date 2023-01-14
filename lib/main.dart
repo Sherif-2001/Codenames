@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'screens/enter_room_page.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +15,7 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,11 +29,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: SplashScreen.id,
         routes: {
-          SplashScreen.id: (context) => SplashScreen(),
-          HomePage.id: (context) => HomePage(),
-          HowToPlay.id: (context) => HowToPlay(),
-          CreateRoom.id: (context) => CreateRoom(),
-          EnterRoom.id: (context) => EnterRoom()
+          SplashScreen.id: (context) => const SplashScreen(),
+          HomePage.id: (context) => const HomePage(),
+          HowToPlay.id: (context) => const HowToPlay(),
+          CreateRoom.id: (context) => const CreateRoom(),
+          EnterRoom.id: (context) => const EnterRoom()
         },
         theme: ThemeData(fontFamily: "oleoScript"),
       ),
@@ -58,32 +55,30 @@ class _SplashScreenState extends State<SplashScreen> {
       decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [Colors.red.shade800, Colors.blue.shade800],
-              stops: [0.5, 0.5],
+              stops: const [0.5, 0.5],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight)),
       child: AnimatedSplashScreen(
           backgroundColor: Colors.transparent,
-          splash: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("CodeNames",
-                    style: TextStyle(fontSize: 70, color: Colors.white)),
-                SizedBox(height: 50),
-                LinearProgressIndicator(
-                  backgroundColor: Colors.white,
-                  color: Colors.blue,
-                ),
-                SizedBox(height: 50),
-                Text("Made by Sherif",
-                    style: TextStyle(fontSize: 30, color: Colors.white)),
-              ],
-            ),
+          splash: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text("CodeNames",
+                  style: TextStyle(fontSize: 70, color: Colors.white)),
+              SizedBox(height: 50),
+              LinearProgressIndicator(
+                backgroundColor: Colors.white,
+                color: Colors.blue,
+              ),
+              SizedBox(height: 50),
+              Text("Made by Sherif",
+                  style: TextStyle(fontSize: 30, color: Colors.white)),
+            ],
           ),
-          animationDuration: Duration(seconds: 2),
+          animationDuration: const Duration(seconds: 2),
           splashIconSize: 1000,
           duration: 5000,
-          nextScreen: HomePage()),
+          nextScreen: const HomePage()),
     );
   }
 }

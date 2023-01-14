@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields
-
 import 'dart:math';
 import 'package:code_names/screens/enter_room_page.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -122,11 +120,11 @@ class Brain extends ChangeNotifier {
           }
       }
     }
-    CheckRemainingWords(context);
+    checkRemainingWords(context);
     notifyListeners();
   }
 
-  void CheckRemainingWords(BuildContext context) async {
+  void checkRemainingWords(BuildContext context) async {
     final snapshot = await docGame.doc(_roomKey).get();
 
     if (snapshot.data()!["BlueWordsRemaining"] == 0) {
@@ -156,7 +154,7 @@ class Brain extends ChangeNotifier {
     _tempButtonClickedList = snapshot.data()!["Buttons"]["Clicked"];
     _tempWordsList = snapshot.data()!["Buttons"]["Words"];
 
-    GameStatsStreamListener(context);
+    gameStatsStreamListener(context);
     notifyListeners();
   }
 
@@ -171,7 +169,7 @@ class Brain extends ChangeNotifier {
             Navigator.pushReplacementNamed(context, HomePage.id),
             docGame.doc(_roomKey).delete()
           },
-          child: Text(
+          child: const Text(
             "Return Home",
             style: TextStyle(color: Colors.white),
           ),
@@ -208,7 +206,7 @@ class Brain extends ChangeNotifier {
     notifyListeners();
   }
 
-  void GameStatsStreamListener(BuildContext context) async {
+  void gameStatsStreamListener(BuildContext context) async {
     docGame.doc(_roomKey).snapshots().listen((event) {
       _blueWordsRemained = event.data()!["BlueWordsRemaining"];
       _redWordsRemained = event.data()!["RedWordsRemaining"];
@@ -249,10 +247,10 @@ class Brain extends ChangeNotifier {
             controller: keyController,
             textAlign: TextAlign.center,
             maxLength: 20,
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.green),
+                borderSide: const BorderSide(color: Colors.green),
                 borderRadius: BorderRadius.circular(20),
               ),
               fillColor: Colors.white,
@@ -268,28 +266,28 @@ class Brain extends ChangeNotifier {
                 if (doc.id == keyController.text) {
                   _roomKey = doc.id;
                   Navigator.pop(context);
-                  GameStatsStreamListener(context);
+                  gameStatsStreamListener(context);
                   Navigator.pushNamed(context, EnterRoom.id);
                 }
               }
               keyController.text = "Room not found";
             },
             style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+                backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
-            child: Text('Join Room', style: TextStyle(fontSize: 25)),
+            child: const Text('Join Room', style: TextStyle(fontSize: 25)),
           ),
         ],
       ),
       style: AlertStyle(
-          titleStyle: TextStyle(fontSize: 30, color: Colors.white),
+          titleStyle: const TextStyle(fontSize: 30, color: Colors.white),
           backgroundColor: Colors.black,
           alertBorder: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
-              side: BorderSide(color: Colors.green)),
+              side: const BorderSide(color: Colors.green)),
           animationType: AnimationType.grow,
-          animationDuration: Duration(milliseconds: 700)),
+          animationDuration: const Duration(milliseconds: 700)),
     ).show();
     notifyListeners();
   }

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_names/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +8,7 @@ import '../brain.dart';
 final _firebaseFirestore = FirebaseFirestore.instance;
 
 class EnterRoom extends StatelessWidget {
-  EnterRoom({Key? key}) : super(key: key);
+  const EnterRoom({Key? key}) : super(key: key);
   static String id = "enterRoomId";
 
   @override
@@ -31,14 +29,14 @@ class EnterRoom extends StatelessWidget {
                 children: [
                   Text(
                     "Room Key : \t${Provider.of<Brain>(context).getRoomKey()}",
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   Text(
                       "Red:${Provider.of<Brain>(context).getWordsRemained(TeamColors.red)}",
-                      style: TextStyle(fontSize: 20)),
+                      style: const TextStyle(fontSize: 20)),
                   Text(
                     "Blue:${Provider.of<Brain>(context).getWordsRemained(TeamColors.blue)}",
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ],
               ),
@@ -51,8 +49,8 @@ class EnterRoom extends StatelessWidget {
                     children: [
                       GridView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
                             childAspectRatio: 3,
                             crossAxisSpacing: 10,
@@ -64,18 +62,14 @@ class EnterRoom extends StatelessWidget {
                               Provider.of<Brain>(context, listen: false)
                                   .onButtonClicked(context, index);
                             },
-                            child: Text(
-                              Provider.of<Brain>(context).getWordAtIndex(index),
-                              style: TextStyle(fontSize: 15, fontFamily: ""),
-                            ),
                             style: ElevatedButton.styleFrom(
                               elevation: 10,
-                              primary: Provider.of<Brain>(context)
+                              backgroundColor: Provider.of<Brain>(context)
                                       .getButtonClickedAtIndex(index)
                                   ? Color(Provider.of<Brain>(context)
                                       .getColorAtIndex(index))
                                   : Colors.white,
-                              onPrimary: Provider.of<Brain>(context)
+                              foregroundColor: Provider.of<Brain>(context)
                                       .getButtonClickedAtIndex(index)
                                   ? Colors.white
                                   : Colors.black,
@@ -86,20 +80,24 @@ class EnterRoom extends StatelessWidget {
                                       : Colors.black,
                                   width: 2),
                             ),
+                            child: Text(
+                              Provider.of<Brain>(context).getWordAtIndex(index),
+                              style: const TextStyle(fontSize: 15, fontFamily: ""),
+                            ),
                           );
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () => {
                           Provider.of<Brain>(context, listen: false)
                               .changeTurn(),
                         },
-                        child: Text("End Turn", style: TextStyle(fontSize: 25)),
                         style: ElevatedButton.styleFrom(
-                            side: BorderSide(width: 2),
-                            primary: Colors.white60,
-                            onPrimary: Colors.black),
+                            side: const BorderSide(width: 2),
+                            backgroundColor: Colors.white60,
+                            foregroundColor: Colors.black),
+                        child: const Text("End Turn", style: TextStyle(fontSize: 25)),
                       ),
                       ElevatedButton(
                         onPressed:
@@ -108,12 +106,12 @@ class EnterRoom extends StatelessWidget {
                                     Provider.of<Brain>(context, listen: false)
                                         .spymasterButton()
                                 : null,
-                        child:
-                            Text("Spymaster", style: TextStyle(fontSize: 25)),
                         style: ElevatedButton.styleFrom(
-                            side: BorderSide(width: 2),
-                            primary: Colors.white60,
-                            onPrimary: Colors.black),
+                            side: const BorderSide(width: 2),
+                            backgroundColor: Colors.white60,
+                            foregroundColor: Colors.black),
+                        child:
+                            const Text("Spymaster", style: TextStyle(fontSize: 25)),
                       ),
                     ],
                   ),
@@ -124,10 +122,10 @@ class EnterRoom extends StatelessWidget {
                     visible: Provider.of<Brain>(context).getInternetStatus(),
                     child: Container(
                       color: Colors.black87,
-                      constraints: BoxConstraints.expand(),
+                      constraints: const BoxConstraints.expand(),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           Icon(
                             Icons.wifi_off,
                             color: Colors.white,

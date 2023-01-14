@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 
 class HowToPlay extends StatelessWidget {
@@ -19,13 +17,13 @@ class HowToPlay extends StatelessWidget {
           gradient: LinearGradient(
               colors: [Colors.red.shade800, Colors.blue.shade800],
               begin: Alignment.centerLeft,
-              stops: [0.5, 0.5],
+              stops: const [0.5, 0.5],
               end: Alignment.centerRight),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ListView(
-            children: [
+            children: const [
               Text(
                 "⚪\tFirst, You need at least four players (two teams of two).",
                 style: TextStyle(

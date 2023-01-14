@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-
 import 'create_room_page.dart';
 import 'how_to_play_page.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                       gradient: LinearGradient(
                           colors: [Colors.red.shade800, Colors.blue.shade800],
                           begin: Alignment.centerLeft,
-                          stops: [0.5, 0.5],
+                          stops: const [0.5, 0.5],
                           end: Alignment.centerRight)),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -53,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                             animatedTexts: [
                               ColorizeAnimatedText(
                                 'CodeNames',
-                                speed: Duration(milliseconds: 500),
+                                speed: const Duration(milliseconds: 500),
                                 colors: [
                                   Colors.white,
                                   Colors.white,
@@ -62,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                                   Colors.white,
                                   Colors.white,
                                 ],
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontSize: 80,
                                   shadows: [
                                     Shadow(color: Colors.black, blurRadius: 10)
@@ -98,9 +95,10 @@ class _HomePageState extends State<HomePage> {
                                             elevation: 5,
                                             width: 300,
                                             behavior: SnackBarBehavior.floating,
-                                            duration: Duration(seconds: 5),
+                                            duration:
+                                                const Duration(seconds: 5),
                                             backgroundColor: Colors.blueGrey,
-                                            content: Text(
+                                            content: const Text(
                                               "Room Key is copied to your clipboard",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(fontSize: 20),
@@ -112,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                                   },
                                 ),
                               ),
-                              SizedBox(width: 100),
+                              const SizedBox(width: 100),
                               Expanded(
                                 child: HomeButton(
                                   borderColor: Colors.blue,
@@ -136,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                                       context, HowToPlay.id),
                                 ),
                               ),
-                              SizedBox(width: 100),
+                              const SizedBox(width: 100),
                               Expanded(
                                 child: HomeButton(
                                     onPress: () => SystemNavigator.pop(),
@@ -154,10 +152,10 @@ class _HomePageState extends State<HomePage> {
                   visible: Provider.of<Brain>(context).getInternetStatus(),
                   child: Container(
                     color: Colors.black87,
-                    constraints: BoxConstraints.expand(),
+                    constraints: const BoxConstraints.expand(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(
                           Icons.wifi_off,
                           color: Colors.white,
