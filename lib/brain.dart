@@ -120,11 +120,11 @@ class Brain extends ChangeNotifier {
           }
       }
     }
-    checkRemainingWords(context);
+    checkRemainingWords();
     notifyListeners();
   }
 
-  void checkRemainingWords(BuildContext context) async {
+  void checkRemainingWords() async {
     final snapshot = await docGame.doc(_roomKey).get();
 
     if (snapshot.data()!["BlueWordsRemaining"] == 0) {
@@ -158,7 +158,7 @@ class Brain extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onTeamWin(BuildContext context, TeamColors teamWon) {
+  void onTeamWin(TeamColors teamWon, BuildContext context) {
     Alert(
       context: context,
       title: teamWon == TeamColors.blue ? "Blue Team Won" : "Red Team Won",
@@ -202,7 +202,6 @@ class Brain extends ChangeNotifier {
       docGame.doc(_roomKey).update({"Spymasters": FieldValue.increment(-1)});
     }
     isSpymaster = !isSpymaster;
-
     notifyListeners();
   }
 
@@ -218,9 +217,9 @@ class Brain extends ChangeNotifier {
       _backgroundColor = event.data()!["TeamTurn"] ? Colors.blue : Colors.red;
       _tempButtonColorsList = event.data()!["Buttons"]["Colors"];
       if (event.data()!["TeamWon"] == 1) {
-        onTeamWin(context, TeamColors.blue);
+        onTeamWin(TeamColors.blue, context);
       } else if (event.data()!["TeamWon"] == 2) {
-        onTeamWin(context, TeamColors.red);
+        onTeamWin(TeamColors.red, context);
       }
       if (event.data()!["TimerEnded"]) {
         _countdownController.restart();
