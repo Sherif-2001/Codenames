@@ -1,34 +1,12 @@
 # CodeNames
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+This is game based on a 2015 party card game designed by Vlaada Chvátil that can be played with family or friends by trying to make out clue given by the spymaster (a member from each team) and choose the correct word and avoid the wrong ones. The game is challenging but more important is so joyful
+
 ![Screenshot_1665060617](https://user-images.githubusercontent.com/93449171/194318218-dce13a20-a892-4171-b462-3536c1aa91db.png)
 
-This is game based on a 2015 party card game designed by Vlaada Chvátil that can be played with family or friends by trying to make out clue given by the spymaster (a member from each team) and choose the correct word and avoid the wrong ones. The game is challenging but more important is so joyful
 
 
 ### Built With
