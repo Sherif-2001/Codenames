@@ -6,56 +6,32 @@ class HowToPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String howToPlayText = '''
+
+-\tThe game must be played with at least four players (two teams of two).
+
+-\tEach team chooses one player to be their spymaster.
+
+-\tThe spymaster can see the colors of the words and gives on clue (one word & one number) to his team.
+
+-\tThen the players should choose the words that match his clue
+        ''';
+
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       body: Container(
+        padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [Colors.red.shade800, Colors.blue.shade800],
-              begin: Alignment.centerLeft,
-              stops: const [0.5, 0.5],
-              end: Alignment.centerRight),
+            colors: [Colors.red.shade800, Colors.blue.shade800],
+            stops: [0.5, 0.5],
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ListView(
-            children: const [
-              Text(
-                "⚪\tFirst, You need at least four players (two teams of two).",
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    backgroundColor: Colors.black12),
-              ),
-              SizedBox(height: 20),
-              Text(
-                "⚪\tEach team chooses one player to be their spymaster.",
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    backgroundColor: Colors.black12),
-              ),
-              SizedBox(height: 20),
-              Text(
-                "⚪\tThe spymaster should tell his team a clue (one word & one number)",
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    backgroundColor: Colors.black12),
-              ),
-              SizedBox(height: 20),
-              Text(
-                "⚪\tThen the players should choose the words that match his clue",
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    backgroundColor: Colors.black12),
-              ),
-            ],
+        child: SingleChildScrollView(
+          child: Text(
+            howToPlayText,
+            style: TextStyle(fontSize: 30, color: Colors.white),
           ),
         ),
       ),

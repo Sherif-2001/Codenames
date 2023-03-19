@@ -1,175 +1,186 @@
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:code_names/provider/enter_room_provider.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'create_room_page.dart';
 import 'how_to_play_page.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../brain.dart';
-import '../custom_widgets/home_button.dart';
+import '../provider/room_provider.dart';
+import '../widgets/home_button.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
   static String id = "homepageId";
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 5,
+        width: 500,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 5),
+        backgroundColor: Colors.black54,
+        content: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
 
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<Brain>(context, listen: false).checkInternetConnection();
-    });
+  void saveRoomKeyToClipboard(BuildContext context) async {
+    Clipboard.setData(
+      ClipboardData(
+          text: Provider.of<RoomProvider>(context, listen: false)
+              .getRoom()
+              .roomKey),
+    ).then(
+        (_) => showSnackBar(context, "Room Key is copied to your clipboard"));
+  }
+
+  void showEnterRoomDialog(BuildContext context, RoomProvider provider) async {
+    final keyController = TextEditingController();
+
+    Alert(
+      context: context,
+      title: "Enter Room Key",
+      buttons: [],
+      useRootNavigator: true,
+      onWillPopActive: true,
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextField(
+            controller: keyController,
+            textAlign: TextAlign.center,
+            maxLength: 20,
+            style: TextStyle(fontSize: 20),
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.green),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+          ),
+          Consumer<EnterRoomProvider>(
+            builder: (context, value, child) => ElevatedButton(
+              onPressed: () {
+                value.enterRoom(context, keyController);
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              child: Text('Join Room', style: TextStyle(fontSize: 25)),
+            ),
+          ),
+        ],
+      ),
+      style: AlertStyle(
+          titleStyle: TextStyle(fontSize: 30, color: Colors.white),
+          backgroundColor: Colors.black,
+          alertBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: Colors.green)),
+          animationType: AnimationType.grow,
+          animationDuration: Duration(milliseconds: 700)),
+    ).show();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: InternetConnectionChecker().onStatusChange,
-        builder: (context, snapshot) => Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: Stack(children: [
-                Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.red.shade800, Colors.blue.shade800],
-                          begin: Alignment.centerLeft,
-                          stops: const [0.5, 0.5],
-                          end: Alignment.centerRight)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: AnimatedTextKit(
-                            repeatForever: true,
-                            animatedTexts: [
-                              ColorizeAnimatedText(
-                                'CodeNames',
-                                speed: const Duration(milliseconds: 500),
-                                colors: [
-                                  Colors.white,
-                                  Colors.white,
-                                  Colors.red,
-                                  Colors.blue,
-                                  Colors.white,
-                                  Colors.white,
-                                ],
-                                textStyle: const TextStyle(
-                                  fontSize: 80,
-                                  shadows: [
-                                    Shadow(color: Colors.black, blurRadius: 10)
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: HomeButton(
-                                  borderColor: Colors.red,
-                                  buttonText: "Create Room",
-                                  onPress: () {
-                                    Provider.of<Brain>(context, listen: false)
-                                        .startGame(context);
-                                    Navigator.pushNamed(context, CreateRoom.id);
-                                    Clipboard.setData(ClipboardData(
-                                            text: Provider.of<Brain>(context,
-                                                    listen: false)
-                                                .getRoomKey()))
-                                        .then(
-                                      (_) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            elevation: 5,
-                                            width: 300,
-                                            behavior: SnackBarBehavior.floating,
-                                            duration:
-                                                const Duration(seconds: 5),
-                                            backgroundColor: Colors.blueGrey,
-                                            content: const Text(
-                                              "Room Key is copied to your clipboard",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 100),
-                              Expanded(
-                                child: HomeButton(
-                                  borderColor: Colors.blue,
-                                  buttonText: "Enter Room",
-                                  onPress: () =>
-                                      Provider.of<Brain>(context, listen: false)
-                                          .onEnterRoomKey(context),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: HomeButton(
-                                  borderColor: Colors.red,
-                                  buttonText: "How to Play",
-                                  onPress: () => Navigator.pushNamed(
-                                      context, HowToPlay.id),
-                                ),
-                              ),
-                              const SizedBox(width: 100),
-                              Expanded(
-                                child: HomeButton(
-                                    onPress: () => SystemNavigator.pop(),
-                                    borderColor: Colors.blue,
-                                    buttonText: "Exit"),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+    return StreamBuilder<ConnectivityResult>(
+      stream: Connectivity().onConnectivityChanged,
+      builder: (context, snapshot) => Scaffold(
+        extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            snapshot.data == ConnectivityResult.none
+                ? Icon(Icons.wifi_off)
+                : Icon(Icons.wifi)
+          ],
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Colors.red.shade800, Colors.blue.shade800],
+                begin: Alignment.centerLeft,
+                stops: [0.5, 0.5],
+                end: Alignment.centerRight),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "CodeNames",
+                  style: TextStyle(
+                    fontSize: 80,
+                    color: Colors.white,
+                    shadows: [Shadow(color: Colors.black, blurRadius: 20)],
                   ),
                 ),
-                Visibility(
-                  visible: Provider.of<Brain>(context).getInternetStatus(),
-                  child: Container(
-                    color: Colors.black87,
-                    constraints: const BoxConstraints.expand(),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.wifi_off,
-                          color: Colors.white,
-                          size: 100,
-                        ),
-                        Text(
-                          "Check your connection",
-                          style: TextStyle(fontSize: 50, color: Colors.white),
-                        )
-                      ],
+                Row(
+                  children: [
+                    Consumer<RoomProvider>(
+                      builder: (context, provider, child) => HomeButton(
+                        onPress: () {
+                          if (snapshot.data == ConnectivityResult.none) {
+                            showSnackBar(
+                                context, "Check your internet connection");
+                            return;
+                          }
+                          saveRoomKeyToClipboard(context);
+                          Navigator.pushNamed(context, CreateRoom.id);
+                          provider.startGame();
+                        },
+                        buttonText: "Create\nRoom",
+                      ),
                     ),
-                  ),
-                ),
-              ]),
-            ));
+                    SizedBox(width: 20),
+                    Consumer<RoomProvider>(
+                      builder: (context, provider, child) => HomeButton(
+                        onPress: () {
+                          if (snapshot.data == ConnectivityResult.none) {
+                            showSnackBar(
+                                context, "Check your internet connection");
+                            return;
+                          }
+                          showEnterRoomDialog(context, provider);
+                        },
+                        buttonText: "Enter\nRoom",
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    HomeButton(
+                      onPress: () => Navigator.pushNamed(context, HowToPlay.id),
+                      buttonText: "How to\nPlay",
+                    ),
+                    SizedBox(width: 20),
+                    HomeButton(
+                      onPress: () => SystemNavigator.pop(),
+                      buttonText: "Exit\nGame",
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
