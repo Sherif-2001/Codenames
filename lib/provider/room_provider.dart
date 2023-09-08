@@ -120,15 +120,11 @@ class RoomProvider extends ChangeNotifier {
     });
   }
 
-  Room getRoom() {
-    return _room;
-  }
+  // ==================== Getters =====================
 
-  bool getIsSpymaster() {
-    return _isSpymaster;
-  }
+  Room get room => _room;
 
-  CountdownController getTimerController() {
-    return _countdownController;
-  }
+  bool get isSpymaster => _isSpymaster;
+
+  CountdownController get countdownController => _countdownController;
 }

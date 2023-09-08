@@ -1,13 +1,13 @@
 import 'package:code_names/provider/enter_room_provider.dart';
-import 'package:code_names/screens/splash_page.dart';
-import 'screens/enter_room_page.dart';
+import 'package:code_names/pages/splash_page.dart';
+import 'pages/enter_room_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'screens/how_to_play_page.dart';
+import 'pages/how_to_play_page.dart';
 import 'provider/room_provider.dart';
-import 'screens/create_room_page.dart';
-import 'screens/home_page.dart';
+import 'pages/create_room_page.dart';
+import 'pages/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

@@ -35,9 +35,7 @@ class HomePage extends StatelessWidget {
   void saveRoomKeyToClipboard(BuildContext context) async {
     Clipboard.setData(
       ClipboardData(
-          text: Provider.of<RoomProvider>(context, listen: false)
-              .getRoom()
-              .roomKey),
+          text: Provider.of<RoomProvider>(context, listen: false).room.roomKey),
     ).then(
         (_) => showSnackBar(context, "Room Key is copied to your clipboard"));
   }

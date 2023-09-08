@@ -27,7 +27,7 @@ class RoomAppBarTitle extends StatelessWidget {
         Consumer<RoomProvider>(
           builder: (context, provider, child) => Countdown(
             seconds: 120,
-            controller: provider.getTimerController(),
+            controller: provider.countdownController,
             onFinished: () {
               provider.changeTurn();
             },

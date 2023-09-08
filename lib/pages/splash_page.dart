@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:code_names/screens/home_page.dart';
+import 'package:code_names/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

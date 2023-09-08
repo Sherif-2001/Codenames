@@ -27,25 +27,24 @@ class CreateRoom extends StatelessWidget {
           provider.endGame(context);
           return false;
         },
-        child: provider.getRoom().teamWon != TeamColors.none
+        child: provider.room.teamWon != TeamColors.none
             ? Scaffold(
                 body: TeamWonWidget(
                     onPress: () {
                       provider.endGame(context);
                       Navigator.pop(context);
                     },
-                    teamWon: provider.getRoom().teamWon),
+                    teamWon: provider.room.teamWon),
               )
             : Scaffold(
-                backgroundColor:
-                    provider.getRoom().teamTurn == TeamColors.redTeam
-                        ? Colors.red
-                        : Colors.blue,
+                backgroundColor: provider.room.teamTurn == TeamColors.redTeam
+                    ? Colors.red
+                    : Colors.blue,
                 appBar: AppBar(
                   backgroundColor: Colors.black54,
                   elevation: 0,
                   centerTitle: true,
-                  title: RoomAppBarTitle(room: provider.getRoom()),
+                  title: RoomAppBarTitle(room: provider.room),
                 ),
                 body: StreamBuilder<ConnectivityResult>(
                   stream: Connectivity().onConnectivityChanged,
@@ -71,24 +70,20 @@ class CreateRoom extends StatelessWidget {
                                   return ElevatedButton(
                                     onPressed: () => provider.onButtonClicked(
                                         context, index),
-                                    style: !provider.getIsSpymaster()
+                                    style: !provider.isSpymaster
                                         ? ElevatedButton.styleFrom(
                                             foregroundColor: provider
-                                                    .getRoom()
-                                                    .buttonsClicked[index]
+                                                    .room.buttonsClicked[index]
                                                 ? Colors.white
                                                 : Colors.black,
                                             elevation: 10,
                                             backgroundColor: provider
-                                                    .getRoom()
-                                                    .buttonsClicked[index]
+                                                    .room.buttonsClicked[index]
                                                 ? colors[provider
-                                                    .getRoom()
-                                                    .buttonsColors[index]]
+                                                    .room.buttonsColors[index]]
                                                 : Colors.white,
                                             side: BorderSide(
-                                              color: provider
-                                                      .getRoom()
+                                              color: provider.room
                                                       .buttonsClicked[index]
                                                   ? Colors.white
                                                   : Colors.black,
@@ -99,15 +94,14 @@ class CreateRoom extends StatelessWidget {
                                             foregroundColor: Colors.white,
                                             elevation: 10,
                                             backgroundColor: colors[provider
-                                                .getRoom()
-                                                .buttonsColors[index]],
+                                                .room.buttonsColors[index]],
                                             side: BorderSide(
                                               color: Colors.white,
                                               width: 2,
                                             ),
                                           ),
                                     child: Text(
-                                      provider.getRoom().words[index],
+                                      provider.room.words[index],
                                       style: TextStyle(
                                           fontSize: 15, fontFamily: ""),
                                     ),

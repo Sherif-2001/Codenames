@@ -21,15 +21,15 @@ class EnterRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EnterRoomProvider>(
-      builder: (context, provider, child) => provider.getRoom().teamWon !=
+      builder: (context, provider, child) => provider.room.teamWon !=
               TeamColors.none
           ? Scaffold(
               body: TeamWonWidget(
                   onPress: () => Navigator.pop(context),
-                  teamWon: provider.getRoom().teamWon),
+                  teamWon: provider.room.teamWon),
             )
           : Scaffold(
-              backgroundColor: provider.getRoom().teamTurn == TeamColors.redTeam
+              backgroundColor: provider.room.teamTurn == TeamColors.redTeam
                   ? Colors.red
                   : Colors.blue,
               appBar: AppBar(
@@ -40,19 +40,19 @@ class EnterRoom extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      "Room Key : \t${provider.getRoom().roomKey}",
+                      "Room Key : \t${provider.room.roomKey}",
                       style: TextStyle(fontSize: 20),
                     ),
                     Column(
                       children: [
                         Text("Red"),
-                        Text(provider.getRoom().redWordsNum.toString())
+                        Text(provider.room.redWordsNum.toString())
                       ],
                     ),
                     Column(
                       children: [
                         Text("Blue"),
-                        Text(provider.getRoom().blueWordsNum.toString())
+                        Text(provider.room.blueWordsNum.toString())
                       ],
                     ),
                   ],
@@ -82,25 +82,21 @@ class EnterRoom extends StatelessWidget {
                                 return ElevatedButton(
                                   onPressed: () =>
                                       provider.onButtonClicked(context, index),
-                                  style: !provider.getIsSpymaster()
+                                  style: !provider.isSpymaster
                                       ? ElevatedButton.styleFrom(
                                           foregroundColor: provider
-                                                  .getRoom()
-                                                  .buttonsClicked[index]
+                                                  .room.buttonsClicked[index]
                                               ? Colors.white
                                               : Colors.black,
                                           elevation: 10,
                                           backgroundColor: provider
-                                                  .getRoom()
-                                                  .buttonsClicked[index]
+                                                  .room.buttonsClicked[index]
                                               ? colors[provider
-                                                  .getRoom()
-                                                  .buttonsColors[index]]
+                                                  .room.buttonsColors[index]]
                                               : Colors.white,
                                           side: BorderSide(
                                             color: provider
-                                                    .getRoom()
-                                                    .buttonsClicked[index]
+                                                    .room.buttonsClicked[index]
                                                 ? Colors.white
                                                 : Colors.black,
                                             width: 2,
@@ -110,15 +106,14 @@ class EnterRoom extends StatelessWidget {
                                           foregroundColor: Colors.white,
                                           elevation: 10,
                                           backgroundColor: colors[provider
-                                              .getRoom()
-                                              .buttonsColors[index]],
+                                              .room.buttonsColors[index]],
                                           side: BorderSide(
                                             color: Colors.white,
                                             width: 2,
                                           ),
                                         ),
                                   child: Text(
-                                    provider.getRoom().words[index],
+                                    provider.room.words[index],
                                     style:
                                         TextStyle(fontSize: 15, fontFamily: ""),
                                   ),

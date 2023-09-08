@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_names/models/button_colors_enum.dart';
 import 'package:code_names/models/room.dart';
 import 'package:code_names/models/team_colors_enum.dart';
-import 'package:code_names/screens/enter_room_page.dart';
+import 'package:code_names/pages/enter_room_page.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
@@ -110,11 +110,9 @@ class EnterRoomProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Room getRoom() {
-    return _room;
-  }
+  // ================== Getters ====================
 
-  bool getIsSpymaster() {
-    return _isSpymaster;
-  }
+  Room get room => _room;
+
+  bool get isSpymaster => _isSpymaster;
 }
