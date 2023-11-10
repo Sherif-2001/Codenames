@@ -13,7 +13,8 @@ class HomeButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(20),
           backgroundColor: Colors.black26,
-          shape: CircleBorder(),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
           side: BorderSide(color: Colors.white, width: 2),
         ),
         child: Text(

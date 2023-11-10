@@ -1,11 +1,11 @@
+import 'package:code_names/constants/team_colors_enum.dart';
 import 'package:code_names/models/room.dart';
 import 'package:code_names/provider/room_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timer_count_down/timer_count_down.dart';
 
 class RoomAppBarTitle extends StatelessWidget {
-  const RoomAppBarTitle({super.key, required this.room});
+  RoomAppBarTitle({super.key, required this.room});
 
   final Room room;
 
@@ -19,23 +19,34 @@ class RoomAppBarTitle extends StatelessWidget {
           style: TextStyle(fontSize: 20),
         ),
         Column(
-          children: [Text("Red"), Text(room.redWordsNum.toString())],
+          children: [
+            Text("Red"),
+            Text(room.redTeam.wordsRemaining.toString()),
+          ],
         ),
         Column(
-          children: [Text("Blue"), Text(room.blueWordsNum.toString())],
+          children: [
+            Text("Blue"),
+            Text(room.blueTeam.wordsRemaining.toString())
+          ],
+        ),
+        Column(
+          children: [
+            Text("My Team"),
+            Consumer<RoomProvider>(
+              builder: (context, provider, child) => Text(
+                teamColorsToString[provider.team]!.toUpperCase(),
+                style: TextStyle(
+                    color: provider.team == TeamColors.blueTeam
+                        ? Colors.blue
+                        : Colors.red),
+              ),
+            )
+          ],
         ),
         Consumer<RoomProvider>(
-          builder: (context, provider, child) => Countdown(
-            seconds: 120,
-            controller: provider.countdownController,
-            onFinished: () {
-              provider.changeTurn();
-            },
-            build: (context, time) {
-              return Text("Time Left : ${time.toString()}");
-            },
-          ),
-        )
+            builder: (context, provider, child) =>
+                Text("Time Left : ${provider.remainingTime}"))
       ],
     );
   }

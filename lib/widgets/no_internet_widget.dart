@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NoWifiWidget extends StatelessWidget {
-  const NoWifiWidget({super.key});
+class NoInternetWidget extends StatelessWidget {
+  const NoInternetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
