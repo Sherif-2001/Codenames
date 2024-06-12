@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_names/pages/gameplay_room_page.dart';
 import 'package:code_names/provider/room_provider.dart';
-import 'package:code_names/services/deep_link_handler.dart';
 import 'package:code_names/services/internet_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +19,6 @@ class _CreateJoinRoomState extends State<CreateJoinRoom> {
   bool _isSpymasterChecked = false;
   String teamsColorsGroup = "blue";
   final interntHandler = InterntHandler();
-  final deepLinkHandler = DeepLinkHandler();
   final TextEditingController roomKeyController = TextEditingController();
 
   void showSnackBar(BuildContext context, String title, String message) {
@@ -73,12 +71,6 @@ class _CreateJoinRoomState extends State<CreateJoinRoom> {
             context, "No Room Found", "There is no room with the given key");
       }
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    deepLinkHandler.initUniLinks();
   }
 
   @override
